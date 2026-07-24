@@ -526,12 +526,10 @@ commands = {
 
 hist_cmd = 0
 
-#clear()
-print("DEBUG: Alive")
+clear()
 start()
 
 while True:
-    print("DEBUG: Alive")
     custom_prompt = config.get("prompt", "")
     path_display = get_prompt()
     user_display = user_name
