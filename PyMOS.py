@@ -7,70 +7,6 @@ import whatismyip, requests
 import platform
 import json
 
-## logo
-logo0 = f"""{Fore.LIGHTBLUE_EX} @@@@@@@@@@@@@@@                   
-              @@@@@@@@@@@@@@@@@@@@@                
-             @@@ @@@@@@@@@@@@@@@@               
-             @@@ @@@@@@@@@@@@@@@@@              
-             @@@@@@@@@@@@@@@@@@@@@@@@              
-             @@@@@@@@@@@@@@@@@@@@@@@@              
-                         @@@@@@@@@@@@              
-    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {Fore.YELLOW}********     
-  {Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {Fore.YELLOW}*********    
- {Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {Fore.YELLOW}**********   
- {Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {Fore.YELLOW} ***********  
-{Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@{Fore.YELLOW} ************  
-{Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ {Fore.YELLOW} *************  
-{Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@@@ {Fore.YELLOW} ****************  
-{Fore.LIGHTBLUE_EX}@@@@@@@@@@@@@ {Fore.YELLOW} **********************************  
-{Fore.LIGHTBLUE_EX}@@@@@@@@@@@@{Fore.YELLOW} ************************************  
- {Fore.LIGHTBLUE_EX}@@@@@@@@@@ {Fore.YELLOW} ***********************************   
- {Fore.LIGHTBLUE_EX}@@@@@@@@@@ {Fore.YELLOW}***********************************   
-  {Fore.LIGHTBLUE_EX}@@@@@@@@@ {Fore.YELLOW} **********************************    
-     {Fore.LIGHTBLUE_EX}@@@@@@{Fore.YELLOW} ********************************      
-             ************                          
-             ************************              
-             ***************** ****              
-             **************** **               
-              **************** ****               
-               *******************                 
-                    *********{Fore.WHITE}                      
-"""
-logo1 = f"""{Fore.LIGHTBLACK_EX} @@@@@@@@@@@
-                       -@@@@@@@@@@@@@@@-
-                     *@@@@@@@@@@@@@@@@@@@ .
-                  .=@@@@@@@@@@@@@@@@@@@@@%@::
-                 @@@@@@@@@@@@@@%@@@@@@@@*-#@@%
-               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@%+
-               @@@@@@@#@@@@@@@@@@@@@@@:@.@@@@#=-
-               @@@@@ @@@ @@@@ .#%#++
-              :*@@: @@ =@ =-:: +
-              *%.@ @@ @@ *:@=
-             +#+@ %@@@@@ #@:= +=*=.
-             .=*%@ @@@@@@@ @@@@@@@ ==+-
-              =:-**##%@%@@@@@**%@%%@@@@@@@##+*--:--
-            -+*@@@%@@@@@@@@@@@@@@@@@@@@@@@%@+=:-+.
-             =:+ @- @@@@@@@@@@@@@@@@@@@@. @ @=@=.#
-            -=*@ @@@@@@@@@@@@@@@@@ +--
-            *+*@@@# @@@@@@@@@@@@@@@@ ##+-*::
-              .=+++ @@@#*@*@ @ @@@@@@ @%@:::..
-              -#%@@@. @@@@* =@@@ @==-=
-               *=##%#..@@ @@@ @@+=:@
-                 @@@@ @. @#%++
-                 =*% #=+.
-                 @#%@ :@#@:
-                 -%*@@# .@@%@*
-                  @@@@@== +@@@@@*
-                  @@@@@@@ .@@@@@%#
-                   .@@@@@@. :@@%#*% .
-                     @@@@@@@@@@@@@@@@@@@@@.
-                      @@@@@@@@@@@@@@@@@@@
-                       #@@@@@@@@@@@@@@@
-                        %#@@@@@@@@@@@@ *
-                         -@@@@@@@@@@@:
-                           @@@@@@@@@
-                           """
-
 init(autoreset=True)
 
 try:
@@ -86,7 +22,7 @@ PHYSICAL_HOME = os.path.join(home_folder, "home", "user")
 if not os.path.exists(PHYSICAL_HOME):
     os.makedirs(PHYSICAL_HOME)
 
-CONFIG_DIR = os.path.join(home_folder, ".pymos")
+CONFIG_DIR = os.path.join(PHYSICAL_HOME, ".pymos")
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 
 if not os.path.exists(CONFIG_DIR):
@@ -150,17 +86,12 @@ now_time_Ymd = now.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 cur_dir = f"~"
 input_nick = f"~"
 
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " import is successful")
-
 def start():
     global input_nick, uptime, PHYSICAL_HOME
     uptime = time.time()
     print(Fore.LIGHTGREEN_EX + "Python Mini-OS v1.0 Alpha Booting..." + Fore.WHITE)
     os.chdir(PHYSICAL_HOME)
     input_nick = get_prompt()
-    
-    ##print("\r" + " " * 100 + "\r", end="")
-    
     
     print(Fore.GREEN + f"""
     =====================
@@ -172,8 +103,9 @@ def start():
     print(f"""
     {Fore.GREEN}Welcome to PyMOS{Fore.WHITE}
 
- - Community : {Fore.LIGHTBLUE_EX}https://t.me/feat_sz{Fore.WHITE}
- - Report : {Fore.LIGHTBLUE_EX}https://t.me/feat_chat{Fore.WHITE}
+ - Github : {Fore.LIGHTBLUE_EX}https://github.com/Featsz/PyMOS{Fore.RESET}
+ - Community : {Fore.LIGHTBLUE_EX}https://t.me/feat_sz{Fore.RESET}
+ - Report : {Fore.LIGHTBLUE_EX}https://t.me/feat_chat{Fore.RESET}
  - Your name : {Fore.LIGHTBLUE_EX}{user_name}
  """)
     
@@ -188,8 +120,6 @@ def start():
             commands[cmd](args)
         else:
             print(f"auto_command: {Fore.RED}Command '{cmd}' not found")
-
-print(f"{Fore.GREEN} [ OK ] {Style.RESET_ALL} Starts is successful")
     
 def get_prompt():
     current_path = os.getcwd()
@@ -207,9 +137,7 @@ def get_prompt():
             return "/" + releative
     else:
         return current_path
-    
 
-        
 def cmd_ls(args):
     
     for item in os.listdir('.'):
@@ -219,9 +147,6 @@ def cmd_ls(args):
             print(f"{Fore.LIGHTBLUE_EX + item + Fore.RESET}")
         else:
             print(item)
-    
-    
-print(Fore.GREEN + "[ OK ]" + Style.RESET_ALL + " ls is successful")
 
 def cmd_cd(args):
     args_com = ' '.join(args)
@@ -243,7 +168,6 @@ def cmd_cd(args):
          print(f"cd: {Fore.RED + Style.BRIGHT}No such directory")
     except NotADirectoryError:
          print(f"cd: {Style.BRIGHT}'{args[0]}'{Fore.RED} is not a directory")
-print(Fore.GREEN + "[ OK ]" +Fore.WHITE + " cd is successful")
 
 def cmd_exit(args):
     print(f"exit: {Fore.RED + Style.BRIGHT}System shutdown")
@@ -252,7 +176,6 @@ def cmd_exit(args):
     clear()
     print(f"{Fore.LIGHTGREEN_EX + Style.BRIGHT}Bye-Bye!")
     exit()
-print(Fore.GREEN + "[ OK ]" +Fore.WHITE + " exit is successful")
 
 def cmd_mkdir(args):
     if not args:
@@ -271,7 +194,6 @@ def cmd_mkdir(args):
         print(f"mkdir: cannot create directory '{folder_name}': File exists")
     except FileNotFoundError:
         print(f"mkdir: cannot create directory '{folder_name}': No such file or directory")
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " mkdir is succesful")
     
 def cmd_sudo(args):
     cmd_name = ' '.join(args)
@@ -291,7 +213,6 @@ def cmd_sudo(args):
         return
         
     print(f"sudo: {Fore.RED + Style.BRIGHT}Permission denied{Style.RESET_ALL}")
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " sudo is successful")  
 
   
 def cmd_fm(args):
@@ -403,7 +324,6 @@ def cmd_help(args):
     print()
     for cmd, desc in commands_help.items():
         print(f" {cmd:<10} - {desc}")
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " help is successful")
 
 def cmd_systemfetch(args):
     uptime_seconds = time.time() - uptime
@@ -411,20 +331,7 @@ def cmd_systemfetch(args):
     minutes = int((uptime_seconds % 3600) // 60)
     seconds = int(uptime_seconds % 60)
     nice_uptime = f"{hours}h {minutes}m {seconds}s" if hours > 0 else f"{minutes}m {seconds}s"
-    logo = logo0
-            
-    if args:
-        first_arg = args[0]
-        if first_arg in ["skull", "1", "-1"]:
-            try:
-                logo = logo1
-            except NameError:
-                print(f"systemfetch: {Fore.RED}error 500")
-        elif first_arg in ["python", "0", "-0"]:
-            try:
-                logo = logo0
-            except NameError:
-                print(f"systemfetch: {Fore.RED}error 500")
+    
 
     user = os.getlogin()
     host = os.uname().nodename
@@ -439,19 +346,16 @@ def cmd_systemfetch(args):
     system_platform = platform.system()
     split = os.uname().release.split('-')[1]
     
-    print(f""" {Fore.GREEN + Style.BRIGHT}PYTHON MINI-OS SYSTEM INFO{Fore.RESET} \n\n{logo + Fore.RESET}
+    print(f""" {Fore.GREEN + Style.BRIGHT}PYTHON MINI-OS SYSTEM INFO{Fore.RESET} \n\n{Fore.RESET}
      —{Fore.LIGHTGREEN_EX} User{Fore.WHITE} : {Fore.LIGHTBLUE_EX}{user_name}
      {Fore.WHITE}—{Fore.LIGHTGREEN_EX} Hostname{Fore.WHITE} : {Fore.LIGHTBLUE_EX}{host_name}
      {Fore.WHITE}—{Fore.LIGHTGREEN_EX} Uptime{Fore.WHITE} : {Fore.LIGHTBLUE_EX}{nice_uptime}
      {Fore.WHITE}—{Fore.LIGHTGREEN_EX} Directory{Fore.WHITE} : {Fore.LIGHTBLUE_EX}{display_path}
      {Fore.WHITE}—{Fore.LIGHTGREEN_EX} OS{Fore.WHITE} : {Fore.LIGHTBLUE_EX}PyMOS v1.0 Alpha ({system_platform})
      {Fore.WHITE}—{Fore.LIGHTGREEN_EX} help {Fore.WHITE} : {Fore.LIGHTBLUE_EX}help{Fore.RESET + Style.RESET_ALL}""")
-    
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " systemfetch is successful")
 
 def cmd_pwd(args):
     print(os.getcwd())
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " pwd is successful")
 
 def cmd_rmdir(args):
     if not args:
@@ -465,14 +369,12 @@ def cmd_rmdir(args):
         print(f"rmdir: {Fore.RED} cannot delete{Fore.WHITE} '{folder_name}':{Fore.RED} No such file or directory{Fore.WHITE}")
     except OSError:
         print(f"rmdir: {Fore.RED}cannot delete{Fore.WHITE} '{folder_name}': {Fore.RED}Directory not empty{Fore.WHITE}")
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " rmdir is successful")
 
 def cmd_reboot(args):
     print(f"reboot: {Fore.RED + Style.BRIGHT}Restarting system{Fore.RESET}")
     time.sleep(1)
     clear()
     start()
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " reboot is successful")
 
 def cmd_date(args):
     if not args:
@@ -485,15 +387,12 @@ def cmd_date(args):
         print(datetime.now().strftime(clean_format))
     except ValueError:
         print(f"date: {Fore.RED}invalid format" + Fore.WHITE)
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " date is successful") 
 
 def cmd_whoami(args):
     print(" " * 3 + Fore.LIGHTBLUE_EX + Style.BRIGHT + user_name)
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " whoami is successful")
 
 def cmd_echo(args):
     print(' '.join(args)) 
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " echo is successful")
 
 def cmd_matrix(args):
     clear()
@@ -512,8 +411,6 @@ def cmd_matrix(args):
             time.sleep(0.033)
     except KeyboardInterrupt:
         pass
-        
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " matrix is successful")
 
 def cmd_ip(args):
         try:
@@ -622,45 +519,89 @@ commands = {
     'yes': cmd_yes,
     'resetconfig': cmd_resetconfig,
 }
-print(Fore.GREEN + "[ OK ]" + Fore.WHITE + " Commands is loaded")
+
+hist_cmd = 0
 
 clear()
 
 start()
 
 while True:
-    print()
     path_display = get_prompt()
     user_display = user_name
     host_display = host_name
     date = datetime.now().strftime("%H:%M")
+    system = platform.system()
+
+    parts = []
     
     if path_display == f"/home/{user_name}":
         path_display = "~"
 
     if custom_prompt:
         raw_prompt = custom_prompt
-
         raw_prompt = raw_prompt.replace("\\n", "\n")
 
-        formatted_prompt = raw_prompt.format(
-            user_display=user_name,
-            host_name=host_name,
-            path=path_display,
-            date=date
-        )
+        try:
+            formatted_prompt = raw_prompt.format(
+                ## base
+                user_name=user_name,
+                host_name=host_name,
+                path=path_display,
+                date=date,
+                hcmd=hist_cmd,
+                system=system,
 
-        prompt_lines = formatted_prompt.split('\n')
-        for line in prompt_lines[:-1]:
-            print(line)
-        parts = input(prompt_lines[-1]).split()
+                ## system commands
+                n="\n",
+                spc=" ",
+
+                ## colors
+                green=Fore.GREEN,
+                red=Fore.RED,
+                blue=Fore.BLUE,
+                yellow=Fore.YELLOW,
+                grey=Fore.LIGHTBLACK_EX,
+                gray=Fore.LIGHTBLACK_EX,
+                bold=Style.BRIGHT,
+                black=Fore.BLACK,
+                white=Fore.WHITE,
+                RESET_COLOR=Fore.RESET,
+                RESET=Style.RESET_ALL,
+
+            )
+            prompt_lines = formatted_prompt.split('\n')
+            for line in prompt_lines[:-1]:
+                print(line)
+            parts = input(prompt_lines[-1]).split()
+            continue
+        except (ValueError, KeyError) as e:
+            print()
+            print(e)
+            while True:
+                answer = input("Invalid prompt detected. Reset to default? [Y/n] ").strip().lower()
+                if answer in ["y", "yes", ""]:
+                    cmd_resetconfig(None)
+                    break
+                elif answer in ["n", "no"]:
+                    print("\nSkipping reset\n")
+                    print(f"{Style.BRIGHT}Invalid prompt detected.\nDelete {Fore.BLUE}/home/user/pymos/config.json{Fore.RESET} and restart to reset to default.")
+                    exit()
+                else:
+                    pass
+            
+        
     else:
-        upper_line = f"{Style.BRIGHT + Fore.WHITE}┌──({Fore.LIGHTGREEN_EX}{user_display}{Fore.WHITE}@{Fore.LIGHTBLUE_EX}{host_display}{Fore.WHITE})-[{Fore.LIGHTBLUE_EX}{path_display}{Fore.WHITE}]"
+        upper_line = f"\n{Style.BRIGHT + Fore.WHITE}┌──({Fore.LIGHTGREEN_EX}{user_display}{Fore.WHITE}@{Fore.LIGHTBLUE_EX}{host_display}{Fore.WHITE})-[{Fore.LIGHTBLUE_EX}{path_display}{Fore.WHITE}]"
         lower_line = f"{Style.RESET_ALL + Style.BRIGHT}└─{Fore.LIGHTBLUE_EX + Style.BRIGHT}$ {Fore.LIGHTBLACK_EX}"
         
         print(upper_line)
-        parts = input(lower_line).split()
-    
+
+        try:
+            parts = input(lower_line).split()
+        except KeyboardInterrupt:
+            print()
+            continue
     
     print(Style.RESET_ALL, end="")
     if not parts:
@@ -669,6 +610,7 @@ while True:
     args = parts[1:]
     if cmd in commands:
         commands[cmd](args)
+        hist_cmd += 1
     else:
         print(f"'{cmd}'{Fore.RED + Style.BRIGHT} not found. use{Style.RESET_ALL} 'help'")
 
