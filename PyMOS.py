@@ -6,6 +6,7 @@ from colorama import Fore, Style, init
 import whatismyip, requests
 import platform
 import json
+import sys
 
 init(autoreset=True)
 
@@ -57,7 +58,7 @@ def load_config():
 load_config()
 
 def cmd_resetconfig(args):
-    global config, user_name, host_name 
+    global config, user_name, host_name, custom_prompt
     try:
         default_config = {
             "user_name": "user", 
@@ -70,9 +71,12 @@ def cmd_resetconfig(args):
         config = default_config
         user_name = default_config["user_name"]
         host_name = default_config["host_name"]
+        custom_prompt = default_config["prompt"]
         print(f"{Fore.GREEN}Config has been reset to default.")
         
-        load_config()
+        #load_config()
+        
+
     except Exception as e:
         print(f"resetconfig: {Fore.RED}Error: {e}")
 
@@ -522,11 +526,13 @@ commands = {
 
 hist_cmd = 0
 
-clear()
-
+#clear()
+print("DEBUG: Alive")
 start()
 
 while True:
+    print("DEBUG: Alive")
+    custom_prompt = config.get("prompt", "")
     path_display = get_prompt()
     user_display = user_name
     host_display = host_name
@@ -568,13 +574,11 @@ while True:
                 white=Fore.WHITE,
                 RESET_COLOR=Fore.RESET,
                 RESET=Style.RESET_ALL,
-
             )
             prompt_lines = formatted_prompt.split('\n')
             for line in prompt_lines[:-1]:
                 print(line)
             parts = input(prompt_lines[-1]).split()
-            continue
         except (ValueError, KeyError) as e:
             print()
             print(e)
@@ -589,8 +593,6 @@ while True:
                     exit()
                 else:
                     pass
-            
-        
     else:
         upper_line = f"\n{Style.BRIGHT + Fore.WHITE}┌──({Fore.LIGHTGREEN_EX}{user_display}{Fore.WHITE}@{Fore.LIGHTBLUE_EX}{host_display}{Fore.WHITE})-[{Fore.LIGHTBLUE_EX}{path_display}{Fore.WHITE}]"
         lower_line = f"{Style.RESET_ALL + Style.BRIGHT}└─{Fore.LIGHTBLUE_EX + Style.BRIGHT}$ {Fore.LIGHTBLACK_EX}"
